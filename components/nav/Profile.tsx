@@ -20,6 +20,8 @@ const Profile = () => {
     setUser(undefined);
   };
 
+  const isAdmin = user?.user_metadata?.role === "admin";
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -36,15 +38,17 @@ const Profile = () => {
           <p>{user?.user_metadata?.user_name}</p>
           <p className="text-gray-500">{user?.user_metadata?.email}</p>
         </div>
-        <Link href={"/dashboard"} className="block">
-          <Button
-            variant={"ghost"}
-            className="w-full flex items-center justify-between"
-          >
-            Dashboard
-            <DashboardIcon />
-          </Button>
-        </Link>
+        {isAdmin && (
+          <Link href={"/dashboard"} className="block">
+            <Button
+              variant={"ghost"}
+              className="w-full flex items-center justify-between"
+            >
+              Dashboard
+              <DashboardIcon />
+            </Button>
+          </Link>
+        )}
         <Button
           variant={"ghost"}
           onClick={handleLogout}
